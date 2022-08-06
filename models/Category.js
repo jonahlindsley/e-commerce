@@ -6,13 +6,13 @@ class Category extends Model {}
 
 Category.init({
   id: {
-    Type: DataTypes.NUMBER, 
+    type: DataTypes.INTEGER, 
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
   },
   category_name: {
-    Type: DataTypes.STRING,
+    type: DataTypes.STRING,
     allowNull: false
   }
 },{
@@ -25,8 +25,6 @@ Category.init({
 );
 
 
-Category.hasMany(Product)
-Product.belongsTo(Category)
 
 
 module.exports = Category;

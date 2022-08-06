@@ -3,7 +3,8 @@ const { Model, DataTypes } = require('sequelize');
 // import our database connection from config.js
 const sequelize = require('../config/connection');
 const Tag = require('./Tag')
-const ProductTag = require('./ProductTag')
+const ProductTag = require('./ProductTag');
+const Category = require('./Category');
 // Initialize Product model (table) by extending off Sequelize's Model class
 class Product extends Model {}
 
@@ -11,28 +12,36 @@ class Product extends Model {}
 Product.init(
   {
   id: {
-    Type: DataTypes.NUMBER,
-    allowNullq: false,
+    type: DataTypes.INTEGER,
+    allowNull: false,
     primaryKey: true,
     autoIncrement: true
   },
   product_name: {
-    Type: DataTypes.STRING,
+    type: DataTypes.STRING,
     allowNull: false
   },
   price: {
-    Type: DataTypes.STRING,
+    type: DataTypes.DECIMAL,
     allowNull: false,
+    validate: {
     isDecimal: true
+    }
   },
   stock: {
-    Type: DataTypes.NUMBER,
+    type: DataTypes.INTEGER,
     allowNull: false,
     defaultValue: 10,
-    isNumeric: true
+    validate: {
+    isNumeric: true,
+    }
   },
   category_id: {
-    
+    type: DataTypes.INTEGER,
+    references: {
+      model: Category, 
+      key: 'id'
+    }
   }
   },
   {
@@ -44,7 +53,7 @@ Product.init(
   }
 );
 
-Product.belongsToMany(Tag, { through: ProductTag });
+
 
 
 module.exports = Product;
