@@ -12,6 +12,20 @@ router.get('/', (req, res) => {
 });
 
 
+router.get('/:id', (req, res) => {
+  Category.findOne({
+    where:{
+      id: req.params.id
+    },
+    include: Product
+  })
+    .then(data => {
+      res.send(data)
+    })
+
+});
+
+
 // listening on the post route and creating a new category
 router.post('/', (req, res) => {
   Category.create(req.body)

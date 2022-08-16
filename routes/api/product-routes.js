@@ -13,6 +13,19 @@ router.get('/', (req, res) => {
     })
 });
 
+router.get('/:id', (req, res) => {
+  Product.findOne({
+    where:{
+      id: req.params.id
+    },
+    include: Category, Tag
+  })
+    .then(data => {
+      res.send(data)
+    })
+
+});
+
 //lisening on the get route and returning one product based on the passed id and the related tags and categories
 router.get('/:id', (req, res) => {
   Product.findOne({where: {id: req.params.id },

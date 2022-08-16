@@ -12,6 +12,19 @@ router.get('/', (req, res) => {
 
 });
 
+router.get('/:id', (req, res) => {
+  Tag.findOne({
+    where:{
+      id: req.params.id
+    },
+    include: Product
+  })
+    .then(data => {
+      res.send(data)
+    })
+
+});
+
 // listening on the post route for a new tag
 router.post('/', (req, res) => {
     Tag.create(req.body)
